@@ -1,0 +1,3 @@
+import ProductCard from "@/components/ProductCard";
+import { products, categories } from "@/lib/data";
+export default function Shop(){return <main className="container py-12"><h1 className="text-4xl font-black">فروشگاه</h1><p className="text-slate-500 mt-3">دوچرخه و لوازم جانبی منتخب آقای ایران</p><div className="grid lg:grid-cols-4 gap-6 mt-8"><aside className="card p-5 h-max"><b>فیلتر محصولات</b><div className="mt-5 grid gap-3">{categories.map(c=><label key={c.slug} className="flex gap-2"><input type="checkbox"/>{c.title}</label>)}</div><button className="btn btn-primary w-full mt-6">اعمال فیلتر</button></aside><section className="lg:col-span-3 grid sm:grid-cols-2 xl:grid-cols-3 gap-6">{products.map(p=><ProductCard key={p.id} p={p}/>)}</section></div></main>}

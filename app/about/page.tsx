@@ -1,0 +1,1 @@
+export default function About(){return <main className="container py-12"><div className="card p-8 md:p-12"><h1 className="text-4xl font-black">درباره آقای ایران</h1><p className="text-slate-600 leading-9 mt-5">آقای ایران یک فروشگاه تخصصی برای خرید دوچرخه، قطعات و لوازم جانبی است. تمرکز ما روی انتخاب درست، قیمت شفاف، خدمات پس از فروش و تجربه خرید مطمئن است.</p></div></main>}
