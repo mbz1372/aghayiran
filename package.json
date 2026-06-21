@@ -1,6 +1,6 @@
 {
-  "name": "aghaye-iran-bike-store-pro",
-  "version": "2.0.0",
+  "name": "aghaye-iran-mobile-first-bike-store",
+  "version": "3.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
