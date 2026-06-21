@@ -1,21 +1,3 @@
-import { findProduct, products, formatPrice } from "@/lib/data";
-import { notFound } from "next/navigation";
-import { ShoppingCart, ShieldCheck } from "lucide-react";
+import { findProduct, products, formatPrice } from "@/lib/data";import { notFound } from "next/navigation";import { CheckCircle2, Heart, ShoppingCart, Star, Truck, ShieldCheck } from "lucide-react";import ProductCard from "@/components/ProductCard";
 export function generateStaticParams(){return products.map(p=>({id:p.id}))}
-export default function ProductPage({params}:{params:{id:string}}){
- const p=findProduct(params.id); if(!p) return notFound();
- return <main className="container py-12">
-  <div className="grid lg:grid-cols-2 gap-8">
-   <div className="card overflow-hidden"><img src={p.image} className="w-full h-[520px] object-cover"/></div>
-   <div className="card p-8">
-    {p.badge && <span className="badge bg-brand-gold">{p.badge}</span>}
-    <h1 className="text-4xl font-black leading-tight mt-5">{p.name}</h1>
-    <p className="text-slate-600 leading-9 mt-5">{p.description}</p>
-    <div className="mt-6"><b className="text-3xl text-brand">{formatPrice(p.price)}</b>{p.oldPrice && <p className="line-through text-slate-400 mt-1">{formatPrice(p.oldPrice)}</p>}</div>
-    <div className="grid sm:grid-cols-2 gap-3 mt-6">{p.specs.map(s=><div key={s} className="bg-slate-100 rounded-2xl p-4 font-bold">{s}</div>)}</div>
-    <div className="flex gap-3 mt-8"><button className="btn btn-primary flex-1"><ShoppingCart/> افزودن به سبد خرید</button><button className="btn btn-ghost">مشاوره خرید</button></div>
-    <p className="flex items-center gap-2 text-brand mt-6"><ShieldCheck/> ضمانت اصالت و سلامت فیزیکی کالا</p>
-   </div>
-  </div>
- </main>
-}
+export default function ProductPage({params}:{params:{id:string}}){const p=findProduct(params.id);if(!p)return notFound();return <main className="container py-12"><div className="grid lg:grid-cols-2 gap-8"><div className="grid gap-4"><div className="card overflow-hidden"><img src={p.image} className="w-full h-[560px] object-cover"/></div><div className="grid grid-cols-3 gap-3">{p.gallery.map(g=><img key={g} src={g} className="h-28 w-full object-cover rounded-3xl border"/>)}</div></div><div className="card p-8 h-max"><span className="badge bg-gold">{p.badge||"محصول منتخب"}</span><h1 className="text-4xl font-black leading-tight mt-5">{p.name}</h1><div className="flex gap-4 mt-4 text-sm text-slate-500"><span className="flex items-center gap-1 text-bronze"><Star size={16} className="fill-current"/>{p.rating}</span><span>{p.reviews.toLocaleString("fa-IR")} نظر</span><span>{p.sold.toLocaleString("fa-IR")} فروش</span></div><p className="text-slate-600 leading-9 mt-5">{p.description}</p><div className="mt-6"><b className="text-3xl text-forest">{formatPrice(p.price)}</b>{p.oldPrice&&<p className="line-through text-slate-400 mt-1">{formatPrice(p.oldPrice)}</p>}</div><div className="grid sm:grid-cols-2 gap-3 mt-6">{p.specs.map(s=><div key={s} className="bg-slate-100 rounded-2xl p-4 font-bold flex gap-2"><CheckCircle2 className="text-forest" size={18}/>{s}</div>)}</div><div className="grid sm:grid-cols-2 gap-3 mt-6 text-sm"><div className="card shadow-none p-4"><b>رنگ:</b> {p.color}</div><div className="card shadow-none p-4"><b>سایز:</b> {p.size}</div><div className="card shadow-none p-4"><b>گارانتی:</b> {p.warranty}</div><div className="card shadow-none p-4"><b>ارسال:</b> {p.shipping}</div></div><div className="flex gap-3 mt-8"><button className="btn btn-primary flex-1"><ShoppingCart/> افزودن به سبد</button><button className="btn btn-ghost"><Heart/></button></div><div className="flex flex-wrap gap-3 mt-6"><span className="badge bg-mint text-forest"><ShieldCheck size={15}/> ضمانت اصالت</span><span className="badge bg-mint text-forest"><Truck size={15}/> ارسال سریع</span></div></div></div><section className="mt-16"><h2 className="text-3xl font-black mb-6">محصولات مشابه</h2><div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">{products.filter(x=>x.id!==p.id).slice(0,4).map(x=><ProductCard key={x.id} p={x}/>)}</div></section></main>}
