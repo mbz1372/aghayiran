@@ -1,22 +1,3 @@
-import Link from "next/link";
-import { ShoppingBag, Star } from "lucide-react";
-import { Product, formatPrice } from "@/lib/data";
-export default function ProductCard({p,compact=false}:{p:Product;compact?:boolean}){
- const off=p.oldPrice?Math.round((1-p.price/p.oldPrice)*100):0;
- return <article className="card overflow-hidden">
-  <Link href={`/product/${p.id}`} className={`block relative overflow-hidden ${compact?"h-36":"h-48 sm:h-56"}`}>
-   <img src={p.image} alt={p.name} className="w-full h-full object-cover"/>
-   {p.badge&&<span className="badge bg-gold absolute top-3 right-3">{p.badge}</span>}
-   {off>0&&<span className="badge bg-red text-white absolute bottom-3 right-3">{off.toLocaleString("fa-IR")}٪</span>}
-  </Link>
-  <div className={compact?"p-3":"p-4"}>
-   <div className="flex justify-between gap-2 text-[11px] text-slate-500"><span>{p.subcategory}</span><span className="flex items-center gap-1 text-amber-600"><Star size={13} className="fill-current"/>{p.rating}</span></div>
-   <Link href={`/product/${p.id}`}><h3 className={`font-black leading-7 mt-2 ${compact?"text-sm line-clamp-2":"min-h-14"}`}>{p.name}</h3></Link>
-   {!compact&&<p className="text-xs text-slate-500 line-clamp-2 mt-1">{p.short}</p>}
-   <div className="mt-3 flex items-end justify-between gap-2">
-    <div><b className="text-forest text-sm sm:text-base">{formatPrice(p.price)}</b>{p.oldPrice&&<p className="text-[11px] text-slate-400 line-through">{formatPrice(p.oldPrice)}</p>}</div>
-    <button className="btn btn-primary p-2 min-h-10 rounded-xl"><ShoppingBag size={17}/></button>
-   </div>
-  </div>
- </article>
-}
+"use client";
+import Link from "next/link";import {Heart,Plus,Scale,Star} from "lucide-react";import {Product,formatPrice} from "@/lib/data";import {useCompare} from "@/components/CompareProvider";
+export default function ProductCard({p,compact=false}:{p:Product;compact?:boolean}){const {toggle,has}=useCompare();return <article className="product-card"><div className={`product-image ${compact?"!h-[190px]":""}`}><Link href={`/product/${p.id}`}><img src={p.image} alt={p.name}/></Link><span className="badge badge-acid absolute top-3 right-3">{p.badge||"منتخب"}</span><button onClick={()=>toggle(p.id)} className={`absolute left-3 top-3 w-10 h-10 rounded-full border grid place-items-center ${has(p.id)?'bg-night text-white':'bg-white'}`} aria-label="مقایسه"><Scale size={17}/></button></div><div className="product-body"><div className="flex justify-between text-xs text-slate-500"><span>{p.brand}</span><span className="flex gap-1 text-amber-600"><Star size={13} className="fill-current"/>{p.rating}</span></div><Link href={`/product/${p.id}`}><h3 className="font-black leading-7 min-h-14 mt-2">{p.name}</h3></Link><p className="text-xs text-slate-500 line-clamp-2">{p.description}</p><div className="flex justify-between items-end mt-4"><div><b className="price">{formatPrice(p.price)}</b>{p.oldPrice&&<div className="text-xs text-slate-400 line-through">{formatPrice(p.oldPrice)}</div>}</div><button className="w-11 h-11 rounded-full bg-night text-white grid place-items-center"><Plus/></button></div></div></article>}

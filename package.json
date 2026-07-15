@@ -1,12 +1,11 @@
 {
-  "name": "aghaye-iran-bike-store-admin",
-  "version": "4.0.0",
+  "name": "aghaye-iran-worldclass",
+  "version": "5.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "start": "next start"
   },
   "dependencies": {
     "next": "14.2.23",
