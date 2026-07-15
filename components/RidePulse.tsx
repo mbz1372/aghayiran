@@ -1,0 +1,4 @@
+"use client";
+import {useEffect,useState} from "react";
+import {Activity,MapPin,Mountain,Wind} from "lucide-react";
+export default function RidePulse(){const [distance,setDistance]=useState(18.4);useEffect(()=>{const t=setInterval(()=>setDistance(v=>+(v+.1).toFixed(1)),2400);return()=>clearInterval(t)},[]);return <div className="pulse-shell"><div className="pulse-map"><div className="route route-a"/><div className="route route-b"/><div className="route-dot dot-a"/><div className="route-dot dot-b"/><div className="rider-dot"><span/></div><div className="map-label label-a"><MapPin size={14}/> پارک جنگلی</div><div className="map-label label-b"><Mountain size={14}/> قله سبک</div></div><div className="pulse-stats"><div><Activity/><span>مسافت امروز</span><b>{distance.toLocaleString("fa-IR")} km</b></div><div><Wind/><span>سرعت میانگین</span><b>۲۴.۸ km/h</b></div><div><Mountain/><span>ارتفاع‌گیری</span><b>۶۴۰ m</b></div></div></div>}
